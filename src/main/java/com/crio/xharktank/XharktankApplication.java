@@ -18,7 +18,7 @@ public class XharktankApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("https://xharktank.crio.do/").allowedOrigins("*");
+				registry.addMapping("*").allowedOrigins("https://xharktank.crio.do");
 			}
 
 		};
