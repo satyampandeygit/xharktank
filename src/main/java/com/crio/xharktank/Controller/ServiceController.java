@@ -15,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/pitches")
+@CrossOrigin
 public class ServiceController {
 
     @Autowired
