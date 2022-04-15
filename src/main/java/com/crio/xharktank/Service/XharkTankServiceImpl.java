@@ -37,18 +37,9 @@ public class XharkTankServiceImpl implements XharkTankService {
         Map<Integer,List<OfferForPitch>> pitchWithOffers = new HashMap<>();
 
         for(Pitch pitch: allPitches){
-            if( repository.findOffer(pitch.getPitch_id()) >0){
-                pitchWithOffers.put(pitch.getPitch_id(), repository.fetchOffer(pitch.getPitch_id()));
-            }else{
-                pitchWithOffers.put(pitch.getPitch_id(), new ArrayList<>());
-            }
-        }
-
-        for(Pitch pitch : allPitches){
 
             PitchWithOffers pitchWithOffersTemp = new PitchWithOffers();
 
-            pitchWithOffersTemp.setOffers(pitchWithOffers.get(pitch.getPitch_id()));
             pitchWithOffersTemp.setId( "" +pitch.getPitch_id());
             pitchWithOffersTemp.setEntrepreneur(pitch.getEntrepreneur());
             pitchWithOffersTemp.setPitchTitle(pitch.getPitchTitle());
@@ -57,7 +48,30 @@ public class XharkTankServiceImpl implements XharkTankService {
             pitchWithOffersTemp.setEquity(pitch.getEquity());
 
             responseToSend.add(pitchWithOffersTemp);
+
+            if( repository.findOffer(pitch.getPitch_id()) >0){
+                //pitchWithOffers.put(pitch.getPitch_id(), repository.fetchOffer(pitch.getPitch_id()));
+                pitchWithOffersTemp.setOffers(repository.fetchOffer(pitch.getPitch_id()));
+            }else{
+                //pitchWithOffers.put(pitch.getPitch_id(), new ArrayList<>());
+                pitchWithOffersTemp.setOffers(new ArrayList<>());
+            }
         }
+
+//        for(Pitch pitch : allPitches){
+//
+//            PitchWithOffers pitchWithOffersTemp = new PitchWithOffers();
+//
+//            pitchWithOffersTemp.setOffers(pitchWithOffers.get(pitch.getPitch_id()));
+//            pitchWithOffersTemp.setId( "" +pitch.getPitch_id());
+//            pitchWithOffersTemp.setEntrepreneur(pitch.getEntrepreneur());
+//            pitchWithOffersTemp.setPitchTitle(pitch.getPitchTitle());
+//            pitchWithOffersTemp.setPitchIdea(pitch.getPitchIdea());
+//            pitchWithOffersTemp.setAskAmount(pitch.getAskAmount());
+//            pitchWithOffersTemp.setEquity(pitch.getEquity());
+//
+//            responseToSend.add(pitchWithOffersTemp);
+//        }
 
         return responseToSend;
     }
